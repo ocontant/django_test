@@ -25,8 +25,8 @@ SECRET_KEY = 'bo*@hkmi!6#%j-g3-=m%e4uv+%*c0el54!!-4p!^aegp)l8=r4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['192.99.196.77','wsdev.yopcloud.com']
+INTERNAL_IPS = ['127.0.0.1','192.99.196.77','74.14.127.153']
 
 # Application definition
 
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
+    'testoli',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +49,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
 
 ROOT_URLCONF = 'garedurire.urls'
 
