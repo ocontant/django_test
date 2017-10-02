@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 class Children(models.Model):
 	Children_ID = models.AutoField(primary_key=True)
-	Parents = models.ManyToManyField('Parent', through='Parent_Children', related_name='childrens')
+	Parents = models.ManyToManyField('Parent', through='Parent_Children')
 	FirstName = models.CharField(max_length=40)
 	LastName = models.CharField(max_length=40)
 	Birthday = models.DateField()
@@ -21,7 +21,7 @@ class Children(models.Model):
 		
 class Parent(models.Model):
 	Parent_ID = models.AutoField(primary_key=True)
-	Childrens = models.ManyToManyField(Children, through='Parent_Children', related_name='parents')
+	#Childrens = models.ManyToManyField(Children, through='Parent_Children')
 	FirstName = models.CharField(max_length=40)
 	LastName = models.CharField(max_length=40)
 	Email = models.EmailField()
@@ -43,7 +43,7 @@ class Parent_Children(models.Model):
 
 class Educator(models.Model):
 	Educator_ID = models.AutoField(primary_key=True)
-	Classes = models.ManyToManyField('Classe', through='Classe_Educator', related_name='Classe')
+	#Classes = models.ManyToManyField('Classe', through='Classe_Educator')
 	FirstName = models.CharField(max_length=40)
 	LastName = models.CharField(max_length=40)
 	FullName = "%s %s" % (LastName, FirstName)
@@ -60,7 +60,7 @@ class Educator(models.Model):
 		
 class Classe(models.Model):
 	Classe_ID = models.AutoField(primary_key=True)
-	Educators = models.ManyToManyField(Educator, through='Classe_Educator', related_name='Educator')
+	Educators = models.ManyToManyField(Educator, through='Classe_Educator')
 	Name = models.CharField(max_length=255)
 
 	
