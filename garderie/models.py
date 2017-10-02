@@ -4,20 +4,24 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 class Children(models.Model):
-	Children_ID = models.PositiveIntegerField(primary_key=True)
+	Children_ID = models.AutoField(primary_key=True)
+	Parents = models.ManyToManyField('Parent', through='Parent_Children', related_name='childrens')
 	FirstName = models.CharField(max_length=40)
 	LastName = models.CharField(max_length=40)
+	Birthday = models.DateField()
 	RAMQ = models.CharField(max_length=14, blank=True, null=True)
 	RAMQ_Expiration = models.DateField(blank=True, null=True)
-	Birthday = models.DateField()
-	
+		
 	def __str__(self):
-		return Children.__name__ + " " + self.FirstName + " " + self.LastName
-
+		return "{}  {}".format(self.LastName + " " + self.FirstName, self.list_parents())
+	
+	def list_parents(self):
+		return ", ".join([parent.name() for parent in self.Parents.all()])
+		
 		
 class Parent(models.Model):
-	Parent_ID = models.PositiveIntegerField(primary_key=True)
-	Childrens = models.ManyToManyField(Children, through='Parent_Children', related_name='Children')
+	Parent_ID = models.AutoField(primary_key=True)
+	Childrens = models.ManyToManyField(Children, through='Parent_Children', related_name='parents')
 	FirstName = models.CharField(max_length=40)
 	LastName = models.CharField(max_length=40)
 	Email = models.EmailField()
@@ -26,45 +30,50 @@ class Parent(models.Model):
 	SIN = models.CharField(max_length=11)
 	
 	def __str__(self):
-		return Parents.__name__ + " " + self.FirstName + " " + self.LastName
+		return "{}  {}".format(self.LastName + " " + self.FirstName, self.list_childrens())
+		
+	def list_childrens(self):
+		return ", ".join([children.name() for children in self.Childrens.all()])
 	
-
+	
 class Parent_Children(models.Model):
 	Parent = models.ForeignKey(Parent)
 	Children = models.ForeignKey(Children)
-
-	def __str__(self):
-		return self.Parent + " " + self.Children		
 		
 
 class Educator(models.Model):
-	Educator_ID = models.PositiveIntegerField(primary_key=True)
+	Educator_ID = models.AutoField(primary_key=True)
+	Classes = models.ManyToManyField('Classe', through='Classe_Educator', related_name='Classe')
 	FirstName = models.CharField(max_length=40)
 	LastName = models.CharField(max_length=40)
+	FullName = "%s %s" % (LastName, FirstName)
 	Email = models.EmailField()
 	Phone = models.CharField(max_length=15)
 	Phone_emergency = models.CharField(max_length=15)
 	
 	def __str__(self):
-		return Educator.__name__ + " " + self.FirstName + " " + self.LastName
-		
+		return "{} {}".format(self.LastName + " " + self.FirstName, self.list_classes())
+	
+	def list_classes(self):
+		return ", ".join([classe.name() for classe in self.Classes.all()])	
 
+		
 class Classe(models.Model):
-	Classe_ID = models.PositiveIntegerField(primary_key=True)
-	Name = models.CharField(max_length=255)
+	Classe_ID = models.AutoField(primary_key=True)
 	Educators = models.ManyToManyField(Educator, through='Classe_Educator', related_name='Educator')
+	Name = models.CharField(max_length=255)
+
 	
 	def __str__(self):
-		return Classe.__name__ + " " + self.Name
+		return "{} {}".format(self.Name, self.list_educators())
 
+	def list_educators(self):
+		return ", ".join([educator.name() for educator in self.Educators.all()])
+		
 		
 class Classe_Educator (models.Model):
 	Classe = models.ForeignKey(Classe)
 	Educator = models.ForeignKey(Educator)
-	
-	
-	def __str__(self):
-		return self.Educator + " " + self.Classe
 		
 		
 
