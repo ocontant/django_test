@@ -1,0 +1,17 @@
+[
+  {
+    "model": "testoli.Book",
+    "pk": 1,
+    "fields": {
+      "title": "Alice In Wonderland"
+    }
+  },
+  {
+    "model": "testoli.Author",
+    "pk": 1,
+    "fields": {
+      "name": "Jimmy Hendrix"
+    }
+  }
+]
+

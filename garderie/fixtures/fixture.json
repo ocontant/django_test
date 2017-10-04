@@ -1,0 +1,53 @@
+[
+  {
+    "model": "garderie.Children",
+    "pk": 1,
+    "fields": {
+      "FirstName": "John",
+      "LastName": "Lennon",
+      "Birthday": "2007-12-06"
+    }
+  },
+  {
+    "model": "garderie.Parent",
+    "pk": 1,
+    "fields": {
+      "FirstName": "Jimmy",
+      "LastName": "Hendrix",
+      "Email": "jimmy.hendrix@music.com",
+      "Phone": "514-777-8888",
+      "Phone_emergency": "514-911-9111"
+    }
+  },
+  {
+    "model": "garderie.Parent",
+    "pk": 2,
+    "fields": {
+      "FirstName": "Mariah",
+      "LastName": "Carey",
+      "Email": "mariah.carey@music.com",
+      "Phone": "514-777-8889",
+      "Phone_emergency": "514-911-9112"
+    }
+  },
+  {
+    "model": "garderie.Educator",
+    "pk": 1,
+    "fields": {
+      "FirstName": "Jim",
+      "LastName": "Carey",
+      "Email": "jim.carey@music.com",
+      "Phone": "514-777-8777",
+      "Phone_emergency": "514-911-9222"
+    }
+  },
+  {
+    "model": "garderie.Classe",
+    "pk": 1,
+    "fields": {
+       "Name": "Explorer"
+    }
+  }
+
+]
+
